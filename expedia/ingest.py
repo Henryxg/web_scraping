@@ -21,6 +21,10 @@ for hotel in eq:
     comentarios= soup.find_all('div',class_= 'lazyload-wrapper')
     comentarios= soup.find_all('div',class_= 'uitk-card-placeholder uitk-card-placeholder-animate-from-light uitk-card-placeholder-ratio-1-3')
     #soup.find_all('div',class_= 'uitk-expando-peek-main') uitk-card-content-section uitk-card-content-section-border-block-end uitk-card-content-section-padded
+    # uitk-card-placeholder uitk-card-placeholder-animate-from-light uitk-card-placeholder-ratio-1-3
+    # uitk-card-placeholder uitk-card-placeholder-animate-from-light uitk-card-placeholder-ratio-1-3
+    
+
     re_hotel['nombre']=soup.find_all('div',class_= 'uitk-spacing uitk-spacing-padding-small-blockend-four uitk-spacing-padding-large-blockstart-three')[0].text ##nombre del hotel
     com_byre,listas=[],[]
     incommet = dict()
@@ -34,6 +38,7 @@ for hotel in eq:
     resultado= resultado + [re_hotel]
 print(resultado)
 
-
+## ecuentra la direccion
+# soup.find_all('div',class_= 'uitk-layout-grid uitk-layout-grid-has-columns-by-small uitk-layout-grid-has-columns-by-medium uitk-layout-grid-has-columns-by-large uitk-layout-grid-has-columns uitk-layout-grid-display-grid')
 
 
