@@ -4,17 +4,19 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
-
+import time
 driver = webdriver.Chrome("./chromedriver")
 url="https://www.tripadvisor.com//"
-urlprueba= "https://www.tripadvisor.com/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html"
+urlprueba= "https://www.booking.com/searchresults.en-us.html?ss=Cuenca%2C+Ecuador&label=gog235jc-1DCAEoggI46AdIM1gDaEGIAQGYATG4ARnIAQzYAQPoAQH4AQKIAgGoAgO4Asjih5oGwAIB0gIkZGEzZDdiY2MtNmFiOS00OTQ4LWIwODEtMDg1ZTBmYjlkOTBk2AIE4AIB&sid=e53fd91033e453be1072170ead87e82a&aid=397594&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=-926345&dest_type=city&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure"
+time.sleep(2)
 driver.get(urlprueba)
 page = driver.page_source
 soup = BeautifulSoup(page, 'html.parser')
-eq= soup.find_all('div',class_= 'listing_title')
+eq= soup.find_all('div',class_= 'a826ba81c4 fe821aea6c fa2f36ad22 afd256fc79 d08f526e0d ed11e24d01 ef9845d4b3 da89aeb942')
+                               
 resultado= []
 for hotel in eq:
-    url_re= url +hotel.next.attrs['href']
+    url_re= hotel.find('a',class_= 'e13098a59f').attrs['href']
     re_hotel={}
     driver.get(url_re)
     page = driver.page_source
@@ -29,7 +31,7 @@ for hotel in eq:
         incommet['comentarioi']=i.text
         incommet['fechai'] = i.find_all('div',class_= 'cRVSd')[0].text
         listas= listas + [incommet]
-        re_hotel['comentarios']= listas
+    re_hotel['comentarios']= listas
     resultado= resultado + [re_hotel]
 print(resultado)
 
