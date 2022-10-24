@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 import time
 from selenium.webdriver.common.keys import Keys
-
+import json 
 
 driver = webdriver.Chrome("./chromedriver")
 url="https://www.expedia.com//"
@@ -52,7 +52,7 @@ for hotel in eq:
             elemet= driver.find_element("tag name", "body")
             for i in range(4):
                 elemet.send_keys(Keys.PAGE_DOWN)
-                time.sleep(1)
+                time.sleep(0.5)
             try: 
                 met=driver.find_element("xpath",'//*[@id="site-content"]/div/div[1]/div[4]/div/div/div/div[2]/section/div[3]/div/div/div[6]/div/div[2]/div[2]/button')
                 met.click()
@@ -99,6 +99,7 @@ for hotel in eq:
         resultado= resultado + [h_registrado]
     except:
         print('algo pasa con ' )
-print('hola estoy aqui')
+
+
 
     
