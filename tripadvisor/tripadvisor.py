@@ -22,6 +22,7 @@ class Hotel_Tripadvisor():
         self.url = "https://www.tripadvisor.com//"
         self.sito = 'tripadvisor'
         self.ciudad = ciudad
+        self.n_habitaciones= 2
        
     
 
@@ -50,7 +51,7 @@ class Hotel_Tripadvisor():
             self.scrooll()
             self.clickon('//*[@id="component_7"]/div/button')
             self.scrooll()
-            time.sleep(4)
+            time.sleep(2)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
             eq = soup.find_all('div',class_="prw_rup prw_meta_hsx_responsive_listing ui_section listItem")  ## encuantra la lista de hoteles que hay que  prw_rup prw_meta_hsx_responsive_listing ui_section listItem
@@ -72,12 +73,29 @@ class Hotel_Tripadvisor():
             per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
             return per
         elif tipo == 'p_fecha_comen':
-            month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+            valuea= value
+            month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Yesterday', 'Today']
             yearl = ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023']
-            value = ' '.join(list(filter(lambda x: x  in month or x in yearl, value.split())))
-            full_month_date= value
-            full_month_format = "%b %Y"
-            return dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+            value = ' '.join(list(filter(lambda x: x  in month or x in yearl, valuea.split())))
+            valub = list(filter(lambda x: (x in month or x in yearl or x.isdigit()), valuea.split()))
+            if  len(value)==3:
+                value= valub[1]+' '+valub[0]+ ' 2022'
+                full_month_date = value
+                full_month_format = "%d %b %Y"
+                return dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+            elif value == 'Today':
+                return dt.datetime.today().strftime('%Y-%m-%d')
+
+            elif  value == 'Yesterday':
+                return (dt.datetime.today()-dt.timedelta(days=1)).strftime('%Y-%m-%d')
+
+            elif value != 'Yesterday':
+                full_month_date= value
+                full_month_format = "%b %Y"
+                return dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+            
+            
+            
 
 
 
@@ -112,10 +130,12 @@ class Hotel_Tripadvisor():
             h_registrado["calficacion_tx"] = informacion.find('div',class_="kkzVG").text   if informacion.find('div',class_="kkzVG") is not None else ''
             h_registrado["sitio_web"]=url_re
             h_registrado["ciudad"]=self.ciudad
-
+            h_registrado["ciun_habitacionesdad"]= self.n_habitaciones= 2
+            h_registrado["n_habitaciones"]= self.n_habitaciones
         
 
             time.sleep(0.5)
+            self.clickon('//*[@id="component_16"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') if self.clickon('//*[@id="component_15"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') !=True else None
             self.scrooll()
             time.sleep(1.5)
             
@@ -123,7 +143,7 @@ class Hotel_Tripadvisor():
             self.clickon('//*[@id="component_16"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') if self.clickon('//*[@id="component_15"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') !=True else None
             
             self.scrooll()
-            
+            self.clickon('//*[@id="component_16"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') if self.clickon('//*[@id="component_15"]/div/div[3]/div[1]/div[1]/div[4]/ul/li[1]') !=True else None
             time.sleep(0.5)
             self.scrooll()
      
@@ -157,22 +177,26 @@ class Hotel_Tripadvisor():
 
             comentarios = soup.find_all('div',class_="YibKl MC R2 Gi z Z BB pBbQr")
             for comen in comentarios:
-                incommet = dict()
-                incommet['nombreh_id']= hnombre 
-                incommet['p_comentario'] = comen.find('div', class_= 'fIrGe _T').text  if comen.find('div', class_= 'fIrGe _T') is not None else ''
-                incommet['p_fecha_comen'] = self.limpiesa( comen.find('div', class_= 'cRVSd').text, 'p_fecha_comen')   if comen.find('div', class_= 'cRVSd') is not None else ''
-                incommet['p_puntuacion']= comen.find('span', class_= 'ui_bubble_rating').attrs['class'][1] if comen.find('span', class_= 'ui_bubble_rating') is not None else ''
-                incommet['p_puntuacion'] = self.limpiesa(incommet['p_puntuacion'],'burble' )
-                incommet['p_pais_de_origen'] = comen.find('span', class_= 'RdTWF').text if comen.find('span', class_= 'RdTWF') is not None else ''
-                incommet['p_n_contributions'] = float(comen.find('span', class_= 'yRNgz').text) if comen.find('span', class_= 'yRNgz') is not None else ''
-                incommet['p_date_stay'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
-                
-                incommet['p_date_stay']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
-                # teHYY _R Me S4 H3
-                hcomen = hcomen + [incommet]
+                try:
+                    incommet = dict()
+                    incommet['nombreh_id']= hnombre 
+                    incommet['p_comentario'] = comen.find('div', class_= 'fIrGe _T').text  if comen.find('div', class_= 'fIrGe _T') is not None else ''
+                    incommet['p_fecha_comen'] = self.limpiesa( comen.find('div', class_= 'cRVSd').text, 'p_fecha_comen')   if comen.find('div', class_= 'cRVSd') is not None else ''
+                    incommet['p_puntuacion']= comen.find('span', class_= 'ui_bubble_rating').attrs['class'][1] if comen.find('span', class_= 'ui_bubble_rating') is not None else ''
+                    incommet['p_puntuacion'] = self.limpiesa(incommet['p_puntuacion'],'burble' )
+                    incommet['p_pais_de_origen'] = comen.find('span', class_= 'RdTWF').text if comen.find('span', class_= 'RdTWF') is not None else ''
+                    incommet['p_n_contributions'] = float(comen.find('span', class_= 'yRNgz').text) if comen.find('span', class_= 'yRNgz') is not None else ''
+                    incommet['p_date_stay'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
+                    
+                    incommet['p_date_stay']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
+                    # teHYY _R Me S4 H3
+                    hcomen = hcomen + [incommet]
+                except:
+                     pass
             return hcomen
         except:
             print('algo pasa con ' )
+            pass
 
     def ingest(self,ciudad):
         resultado= []
@@ -194,16 +218,32 @@ class Hotel_Tripadvisor():
 
             
         print('hola estoy aqui')
+        
         json_object = json.dumps(resultado)
         with open("tripadvisor/" +ciudad +"-tripad.json", "w") as outfile:
             outfile.write(json_object)
+        return resultado
 
 
 if __name__ == "__main__":
     
+    #ciudad= 'ambato'
+    #sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
+    sol= []
     ciudad= 'guayaquil'
-    Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v1')
+    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
+
+    ciudad= 'quito'
+    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
+
+    ciudad= 'manta'
+    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
     
+    ciudad= 'ibarra'
+    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
+
+    ciudad= 'loja'
+    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
 
     
 

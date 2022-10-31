@@ -10,7 +10,7 @@ class Schemas:
 
             'guayaquil':    {
 
-                'url' :'https://www.tripadvisor.es/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html'
+                'url' :'https://www.tripadvisor.es/Hotels-g303845-a_ufe.true-Guayaquil_Guayas_Province-Hotels.html'
 
             },
 
