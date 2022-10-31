@@ -8,7 +8,8 @@ import time
 from selenium.webdriver.common.keys import Keys
 import json 
 import tripadvisor_schema
-
+import datetime as dt
+import string 
 
 class Hotel_Tripadvisor():
     def __init__(self, ciudad):
@@ -19,7 +20,10 @@ class Hotel_Tripadvisor():
         self.linkh= self.schema['url'] 
         self.driver=  webdriver.Chrome("./chromedriver")
         self.url = "https://www.tripadvisor.com//"
-
+        self.sito = 'tripadvisor'
+        self.ciudad = ciudad
+       
+    
 
     def clickon(self, xxpad):
         try:
@@ -53,13 +57,36 @@ class Hotel_Tripadvisor():
             return eq
         except:
             return False
-    
+    def limpiesa(self, value, tipo):
+        if tipo== 'numero':
+            value= ''.join(filter(lambda x: x.isdigit() or x=='-', value))
+            value = value.split('-')
+            a,b= int(value[0]) , int(value[1])            
+            return (a+b)/2 
+        elif tipo == 'burble':
+            dic_val= {'bubble_10':1,'bubble_20':2, 'bubble_30': 3, 'bubble_40':4, 'bubble_50':5}
+            return dic_val[value]
+        elif tipo == 'fecha':
+            full_month_format = "%B %Y"
+            full_month_date= value
+            per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+            return per
+        elif tipo == 'p_fecha_comen':
+            month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+            yearl = ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023']
+            value = ' '.join(list(filter(lambda x: x  in month or x in yearl, value.split())))
+            full_month_date= value
+            full_month_format = "%b %Y"
+            return dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+
+
+
 
     def inf_hotel(self, h_registrado, hotel):
         try:
             url_re = self.url + hotel.find('div',class_="listing_title").find('a',class_= 'property_title prominent')['href']
             time.sleep(2)
-            h_registrado["descripccion"]=hotel.find('a',class_="review_count").text
+            #h_registrado["descripccion"]=hotel.find('a',class_="review_count").text
             h_registrado["link"]=url_re
             ## ingresando al hotel
             time.sleep(2)
@@ -71,14 +98,23 @@ class Hotel_Tripadvisor():
             time.sleep(1)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')  
-            h_registrado['nombre'] = soup.find('h1',id='HEADING').text     if soup.find('h1',id='HEADING') is not None else ''
-            h_registrado["precio"] = soup.find('td',class_='IhqAp Ci').text[:10]          if soup.find('td',class_='IhqAp Ci') is not None else ''
-            h_registrado["precio"] = soup.find('div',class_='IhqAp Ci').text[:10] if h_registrado["precio"]=='' and soup.find('div',class_='IhqAp Ci') is not None else h_registrado["precio"]
+            h_registrado['tipo'] = 'hotel'
+            h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
+            h_registrado['nombre_id'] = soup.find('h1',id='HEADING').text     if soup.find('h1',id='HEADING') is not None else ''
+            h_registrado["precio"] = soup.find('td',class_='IhqAp Ci').text   if soup.find('td',class_='IhqAp Ci') is not None else ''
+            h_registrado["precio"] = soup.find('div',class_='IhqAp Ci').text if h_registrado["precio"]=='' and soup.find('div',class_='IhqAp Ci') is not None else h_registrado["precio"]
+            h_registrado["precio"] = self.limpiesa( h_registrado["precio"] , 'numero')
+
             h_registrado["direccion"] = soup.find('span',class_="fHvkI PTrfg").text     if soup.find('span',class_="fHvkI PTrfg") is not None else ''
             informacion = soup.find('div',class_="ui_columns MXlSZ")                   # if soup.find('h1',class_="QdLfr b d Pn") is not None else ''
-            h_registrado["puntuacion"]= informacion.find('span',class_="uwJeR P").text  if informacion.find('span',class_="uwJeR P") is not None else ''
+            h_registrado["puntuacion"]= float(informacion.find('span',class_="uwJeR P").text)  if informacion.find('span',class_="uwJeR P") is not None else ''
             h_registrado["descripcion"]= informacion.find('div',class_="fIrGe _T").text  if informacion.find('div',class_="fIrGe _T") is not None else ''
-            h_registrado["calficacion"] = informacion.find('div',class_="kkzVG").text   if informacion.find('div',class_="kkzVG") is not None else ''
+            h_registrado["calficacion_tx"] = informacion.find('div',class_="kkzVG").text   if informacion.find('div',class_="kkzVG") is not None else ''
+            h_registrado["sitio_web"]=url_re
+            h_registrado["ciudad"]=self.ciudad
+
+        
+
             time.sleep(0.5)
             self.scrooll()
             time.sleep(1.5)
@@ -90,13 +126,11 @@ class Hotel_Tripadvisor():
             
             time.sleep(0.5)
             self.scrooll()
-            #sera_c = self.clickon( '//*[@id="dropdown_header"]/div[2]/div[2]/div[3]/span')   //*[@id="component_15"]/div/div[3]/div[3]/div/div[2]/span[2]/span/button
-            #sera_c = self.clickon('//*[@id="ABOUT_TAB"]/div[2]/div[1]/div[1]/a/span[2]') if sera_c == False else False
-            #sera_c = self.clickon( '//*[@id="component_3"]/div/div/div[1]/div[2]/a/span[2]') if sera_c == False else False
+     
             return h_registrado
                 
         except:
-                pass
+            return {}
 
     def open_hidenc(self):
             time.sleep(1)
@@ -114,7 +148,7 @@ class Hotel_Tripadvisor():
             except:
                 pass
 
-    def get_comments(self):
+    def get_comments(self, hnombre):
       
         try:
             hcomen=[]
@@ -124,12 +158,16 @@ class Hotel_Tripadvisor():
             comentarios = soup.find_all('div',class_="YibKl MC R2 Gi z Z BB pBbQr")
             for comen in comentarios:
                 incommet = dict()
+                incommet['nombreh_id']= hnombre 
                 incommet['p_comentario'] = comen.find('div', class_= 'fIrGe _T').text  if comen.find('div', class_= 'fIrGe _T') is not None else ''
-                incommet['p_fechac'] = comen.find('div', class_= 'cRVSd').text[-9:] if comen.find('div', class_= 'cRVSd') is not None else ''
-                incommet['p_calificacion']= comen.find('span', class_= 'ui_bubble_rating').attrs['class'][1] if comen.find('span', class_= 'ui_bubble_rating') is not None else ''
-                incommet['p_location'] = comen.find('span', class_= 'RdTWF').text if comen.find('span', class_= 'RdTWF') is not None else ''
-                incommet['p_n_contributions'] = comen.find('span', class_= 'yRNgz').text if comen.find('span', class_= 'yRNgz') is not None else ''
+                incommet['p_fecha_comen'] = self.limpiesa( comen.find('div', class_= 'cRVSd').text, 'p_fecha_comen')   if comen.find('div', class_= 'cRVSd') is not None else ''
+                incommet['p_puntuacion']= comen.find('span', class_= 'ui_bubble_rating').attrs['class'][1] if comen.find('span', class_= 'ui_bubble_rating') is not None else ''
+                incommet['p_puntuacion'] = self.limpiesa(incommet['p_puntuacion'],'burble' )
+                incommet['p_pais_de_origen'] = comen.find('span', class_= 'RdTWF').text if comen.find('span', class_= 'RdTWF') is not None else ''
+                incommet['p_n_contributions'] = float(comen.find('span', class_= 'yRNgz').text) if comen.find('span', class_= 'yRNgz') is not None else ''
                 incommet['p_date_stay'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
+                
+                incommet['p_date_stay']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
                 # teHYY _R Me S4 H3
                 hcomen = hcomen + [incommet]
             return hcomen
@@ -140,12 +178,21 @@ class Hotel_Tripadvisor():
         resultado= []
         eq = self.hotelesc()
         for hotel in eq:
-            h_registrado = {}
-            h_registrado = self.inf_hotel( h_registrado, hotel)
-            #self.open_hidenc()
-            hcomen = self.get_comments()
-            h_registrado['comentarios']= hcomen
-            resultado= resultado + [h_registrado]
+            try:
+                h_registrado = {}
+                h_registrado = self.inf_hotel( h_registrado, hotel)
+                #self.open_hidenc()
+                hcomen = self.get_comments( h_registrado['nombre_id'])
+                if hcomen!=[]:
+                    h_registrado['comentarios']= hcomen 
+                else:
+                    print("no hay cooemtarios en hotel")
+                    h_registrado = {}
+                resultado= resultado + [h_registrado]
+            except:
+                pass
+
+            
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
         with open("tripadvisor/" +ciudad +"-tripad.json", "w") as outfile:
@@ -153,8 +200,10 @@ class Hotel_Tripadvisor():
 
 
 if __name__ == "__main__":
-    #urlprueba= "https://www.tripadvisor.com/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html"
     
     ciudad= 'guayaquil'
     Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v1')
+    
+
+    
 

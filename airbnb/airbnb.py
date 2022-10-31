@@ -7,11 +7,13 @@ import requests
 import time
 from selenium.webdriver.common.keys import Keys
 import json 
-
+import airbnb_schema
 
 class Hotel_Airbnb():
-    def __init__(self, link_hotel_ci):
-        self.linkh= link_hotel_ci
+    def __init__(self, ciudad):
+        self.ciudad= ciudad
+        self.servi= ciudad
+        self.schema = airbnb_schema.Schemas().getSchema(ciudad)
         self.driver=  webdriver.Chrome("./chromedriver")
 
     def clickon(self, xxpad):
@@ -49,8 +51,12 @@ class Hotel_Airbnb():
         try:
             url_re = 'https://www.airbnb.com/'+hotel.find('a',class_="ln2bl2p dir dir-ltr").attrs['href']
             time.sleep(2)
+            h_registrado[]=
+            h_registrado[]=
+            h_registrado[]=
             h_registrado["descripccion"]=hotel.text
             h_registrado["link"]=url_re
+            
             ## ingresando al hotel
             self.driver.get(url_re)
             time.sleep(2)
@@ -107,7 +113,7 @@ class Hotel_Airbnb():
         except:
             print('algo pasa con ' )
 
-    def ingest(self):
+    def ingest(self,ciudad):
         resultado= []
         eq = self.hotelesc()
         for hotel in eq:
@@ -119,10 +125,10 @@ class Hotel_Airbnb():
             resultado= resultado + [h_registrado]
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
-        with open("airbnb/sample-airbnb.json", "w") as outfile:
+        with open("airbnb/"+ciudad+"_airbnb.json", "w") as outfile:
             outfile.write(json_object)
 
 
 if __name__ == "__main__":
-    urlprueba= "https://www.airbnb.com/s/Quito--Pichincha--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=Quito%2C%20Pichincha&date_picker_type=calendar&place_id=ChIJn3xCAkCa1ZERclXvWOGRuUQ&flexible_date_search_filter_type=3&checkin=2022-10-28&checkout=2022-10-29&source=structured_search_input_header&search_type=autocomplete_click"
-    Hotel_Airbnb(urlprueba).ingest()
+    ciudad= "quito"
+    Hotel_Airbnb(ciudad).ingest(ciudad)

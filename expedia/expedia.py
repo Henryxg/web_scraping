@@ -72,9 +72,9 @@ class Hotel_Expedia():
             time.sleep(2)
             soup= self.refresh()
             h_registrado["link"]  =  url_re
-            h_registrado['nombre']  =        self.get_clval( soup, 'h1', 'uitk-heading uitk-heading-3').text    # soup.find( 'h1' ,class_= 'uitk-heading uitk-heading-3')
-            h_registrado['calificacion']  =   self.get_clval( soup, 'h3', 'uitk-heading uitk-heading-5 uitk-spacing uitk-spacing-padding-blockend-three').text[:3]
-            h_registrado['direccion']  =  self.get_clval( soup, 'div', 'uitk-text uitk-type-300 uitk-text-default-theme uitk-layout-flex-item uitk-layout-flex-item-flex-basis-full_width').text  
+            h_registrado['nombre']  =  soup.find( 'h1' ,class_= 'uitk-heading uitk-heading-3').text  if   soup.find( 'h1' ,class_= 'uitk-heading uitk-heading-3') is not None else ''  # soup.find( 'h1' ,class_= 'uitk-heading uitk-heading-3')
+            h_registrado['calificacion']  =   soup.find( 'h3' ,class_= 'uitk-heading uitk-heading-5 uitk-spacing uitk-spacing-padding-blockend-three').text[:3] if soup.find( 'h3' ,class_= 'uitk-heading uitk-heading-5 uitk-spacing uitk-spacing-padding-blockend-three') is not None else ''
+            h_registrado['direccion']  =  soup.find( 'div' ,class_=  'uitk-text uitk-type-300 uitk-text-default-theme uitk-layout-flex-item uitk-layout-flex-item-flex-basis-full_width').text  if soup.find( 'div' ,class_=  'uitk-text uitk-type-300 uitk-text-default-theme uitk-layout-flex-item uitk-layout-flex-item-flex-basis-full_width') is not None else ''  
             self.scrooll(4)
             time.sleep(3)
             h_registrado["descripccion"]= self.get_clval( soup, 'div', 'uitk-text uitk-type-300 uitk-text-default-theme')
