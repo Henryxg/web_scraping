@@ -130,7 +130,6 @@ class Hotel_Tripadvisor():
             h_registrado["calficacion_tx"] = informacion.find('div',class_="kkzVG").text   if informacion.find('div',class_="kkzVG") is not None else ''
             h_registrado["sitio_web"]=url_re
             h_registrado["ciudad"]=self.ciudad
-            h_registrado["ciun_habitacionesdad"]= self.n_habitaciones= 2
             h_registrado["n_habitaciones"]= self.n_habitaciones
         
 

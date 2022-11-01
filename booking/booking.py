@@ -92,8 +92,10 @@ class Hotel_booking():
             h_registrado["precio"] = float(soup.find('span',class_='prco-valign-middle-helper').text[3:][:-1].replace('$',''))          if soup.find('span',class_='prco-valign-middle-helper') is not None else ''
             h_registrado["direccion"] = soup.find('p',class_='address address_clean').text.replace('\n','')    if soup.find('p',class_='address address_clean') is not None else ''
             
-            informacion =  soup.find('div',class_='hp-social_proof reviews-snippet-sidebar hp-social-proof-review_score')
-            
+            informacion =  soup.find('div',class_='hp-social_proof reviews-snippet-sidebar hp-social-proof-review_score') if soup.find('div',class_='hp-social_proof reviews-snippet-sidebar hp-social-proof-review_score') is not None else None
+            #hp-social_proof reviews-snippet-sidebar
+
+
             h_registrado["puntuacion"]= float(informacion.find('div', class_='b5cd09854e d10a6220b4').text)/2  if informacion.find('div',class_="b5cd09854e d10a6220b4") is not None else ''
             h_registrado["calficacion_tx"] = informacion.find('span', class_='b5cd09854e f0d4d6a2f5 e46e88563a').text   if informacion.find('span',class_="b5cd09854e f0d4d6a2f5 e46e88563a") is not None else ''
             h_registrado["ciudad"]=self.ciudad
@@ -102,7 +104,7 @@ class Hotel_booking():
             
             if h_registrado["puntuacion"]=='' :
                 self.scrooll(7)
-                soup = self.refresh() 
+                soup = self.refresh()  
                 informacion =  soup.find('div',class_='hp-social_proof reviews-snippet-sidebar hp-social-proof-review_score')
                 h_registrado["puntuacion"]= long(informacion.find('div', class_='b5cd09854e d10a6220b4').text )/2 if informacion.find('div',class_="b5cd09854e d10a6220b4") is not None else ''
                 h_registrado["calficacion_tx"] = informacion.find('span', class_='b5cd09854e f0d4d6a2f5 e46e88563a').text   if informacion.find('span',class_="b5cd09854e f0d4d6a2f5 e46e88563a") is not None else ''
@@ -124,7 +126,9 @@ class Hotel_booking():
             return h_registrado
                 
         except:
-                pass
+                 h_registrado = {}
+                 return h_registrado
+            
 
     def open_hidenc(self):
             time.sleep(1)
@@ -163,7 +167,7 @@ class Hotel_booking():
                     
                     incommet['p_fecha_comen'] = comen.find('span', class_= 'c-review-block__date').text.replace('\n','') if comen.find('span', class_= 'c-review-block__date') is not None else ''
                     incommet['p_fecha_comen'] = self.limpiesa(incommet['p_fecha_comen'], 'fechacom')
-                    incommet['p_puntuacion']= float(comen.find('div', class_= 'bui-review-score__badge').text.replace(' ','') ) if comen.find('div', class_= 'bui-review-score__badge') is not None else ''
+                    incommet['p_puntuacion']= float(comen.find('div', class_= 'bui-review-score__badge').text.replace(' ','') )/2 if comen.find('div', class_= 'bui-review-score__badge') is not None else ''
                     incommet['p_pais_de_origen'] = comen.find('span', class_= 'bui-avatar-block__subtitle').text.replace('\n','') if comen.find('span', class_= 'bui-avatar-block__subtitle') is not None else ''
                 
                     hcomen = hcomen + [incommet]
@@ -184,13 +188,15 @@ class Hotel_booking():
             h_registrado = {}
             h_registrado = self.inf_hotel( h_registrado, hotel)
             #self.open_hidenc()
-            hcomen = self.get_comments(h_registrado['nombre_id'])
+            hcomen = self.get_comments(h_registrado['nombre_id']) if 'nombre_id' in h_registrado else []
             if hcomen!=[]:
                 h_registrado['comentarios']= hcomen 
             else:
                 print("no hay cooemtarios en hotel")
                 h_registrado = {}
-            resultado= resultado + [h_registrado]
+            
+            resultado= resultado + [h_registrado] if h_registrado!={} else resultado
+
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
         with open("booking/" +ciudad +"-tripad.json", "w") as outfile:
@@ -200,5 +206,5 @@ class Hotel_booking():
 if __name__ == "__main__":
     #urlprueba= "https://www.tripadvisor.com/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html"
     
-    ciudad= 'quito'
-    Hotel_booking(ciudad).ingest('ambatov1')
+    ciudad= 'guayaquil'
+    Hotel_booking(ciudad).ingest(ciudad)

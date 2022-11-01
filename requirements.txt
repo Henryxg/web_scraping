@@ -3,4 +3,5 @@ pandas
 selenium
 request
 playwright
+
 #install tambien chromiom y tambein     install playwright  nos permiete ver coookies que sera de ayuda al monetp de realizar consutase  ne bakend

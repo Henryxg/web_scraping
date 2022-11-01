@@ -15,20 +15,20 @@ class Schemas:
             },
 
             'ambato':       {
-                'url':'https://www.tripadvisor.es/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html'
+                'url':'https://www.booking.com/searchresults.en-us.html?ss=Ambato&ssne=Quito&ssne_untouched=Quito&label=gen173nr-1FCAQoggJCDHNlYXJjaF9xdWl0b0gzWARoQYgBAZgBMbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_pfdmgbAAgHSAiQ4YjFmZjkxZS1mNDA0LTQ2ODMtOTRhNC03NTZmMWIxOGI3YjLYAgXgAgE&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=-924303&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=en&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=deb578739559002a&ac_meta=GhBkZWI1Nzg3Mzk1NTkwMDJhIAAoATICZW46BkFtYmF0b0AASgBQAA%3D%3D&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
 
 
             },
 
             'ibarra':       {
-                'url': 'https://www.tripadvisor.es/Hotels-g312858-Ibarra_Imbabura_Province-Hotels.html'
+                'url': 'https://www.booking.com/searchresults.en-us.html?ss=Ibarra%2C+Imbabura%2C+Ecuador&ssne=Ibarra&ssne_untouched=Ibarra&label=gen173nr-1FCAQoggJCDHNlYXJjaF9xdWl0b0gzWARoQYgBAZgBMbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_pfdmgbAAgHSAiQ4YjFmZjkxZS1mNDA0LTQ2ODMtOTRhNC03NTZmMWIxOGI3YjLYAgXgAgE&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=-929344&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=en&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=4f23788e2bb70059&ac_meta=GhA0ZjIzNzg4ZTJiYjcwMDU5IAAoATICZW46BkliYXJyYUAASgBQAA%3D%3D&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
 
 
             },
 
             'manta':        {
 
-                'url':'https://www.tripadvisor.es/Hotels-g297538-Manta_Manabi_Province-Hotels.html'
+                'url':'https://www.booking.com/searchresults.en-us.html?ss=Manta&ssne=Manta&ssne_untouched=Manta&label=gen173nr-1FCAQoggJCDHNlYXJjaF9xdWl0b0gzWARoQYgBAZgBMbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_pfdmgbAAgHSAiQ4YjFmZjkxZS1mNDA0LTQ2ODMtOTRhNC03NTZmMWIxOGI3YjLYAgXgAgE&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=-930612&dest_type=city&checkin=2022-11-10&checkout=2022-11-11&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
 
             },
 
