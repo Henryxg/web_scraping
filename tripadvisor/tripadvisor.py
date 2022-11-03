@@ -219,7 +219,7 @@ class Hotel_Tripadvisor():
         print('hola estoy aqui')
         
         json_object = json.dumps(resultado)
-        with open("tripadvisor/" +ciudad +"-tripad.json", "w") as outfile:
+        with open("tripadvisor/basejson" +ciudad +"-tripad.json", "w") as outfile:
             outfile.write(json_object)
         return resultado
 
@@ -228,21 +228,9 @@ if __name__ == "__main__":
     
     #ciudad= 'ambato'
     #sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
-    sol= []
-    ciudad= 'guayaquil'
-    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
+    ciudades = ['guayaquil','quito','manta','loja']
+    sol=[]
+    for ciudad in ciudades:
+        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
 
-    ciudad= 'quito'
-    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
-
-    ciudad= 'manta'
-    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
-    
-    ciudad= 'ibarra'
-    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
-
-    ciudad= 'loja'
-    sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')+ sol
-
-    
-
+ 

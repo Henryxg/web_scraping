@@ -73,7 +73,7 @@ class Hotel_booking():
         try:
             url_re = hotel.find('a',class_="e13098a59f")['href']
             time.sleep(2)
-            h_registrado["link"]=url_re
+            h_registrado["sitio_web"]=url_re
             ## ingresando al hotel
             time.sleep(2)
             self.driver.get(url_re)
@@ -199,12 +199,13 @@ class Hotel_booking():
 
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
-        with open("booking/" +ciudad +"-tripad.json", "w") as outfile:
+        with open("booking/basejson/" +ciudad +"_booking.json", "w") as outfile:
             outfile.write(json_object)
 
 
 if __name__ == "__main__":
-    #urlprueba= "https://www.tripadvisor.com/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html"
-    
-    ciudad= 'guayaquil'
-    Hotel_booking(ciudad).ingest(ciudad)
+  
+    ciudades = ['ibarra']
+    for i in ciudades:
+        ciudad= i
+        Hotel_booking(ciudad).ingest(ciudad+'v2')

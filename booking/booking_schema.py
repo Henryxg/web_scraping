@@ -34,7 +34,7 @@ class Schemas:
 
             'loja':         {
 
-                'url' : 'https://www.tripadvisor.es/Hotels-g644406-Loja_Loja_Province-Hotels.html',
+                'url' : 'https://www.booking.com/searchresults.en-us.html?ss=Loja&ssne=Loja&ssne_untouched=Loja&label=gen173nr-1FCAQoggJCDHNlYXJjaF9xdWl0b0gzWARoQYgBAZgBMbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_pfdmgbAAgHSAiQ4YjFmZjkxZS1mNDA0LTQ2ODMtOTRhNC03NTZmMWIxOGI3YjLYAgXgAgE&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=-930353&dest_type=city&checkin=2022-11-10&checkout=2022-11-11&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure',
                 'h_nombre': 'biGQs _P fiohW eIegw'
 
             },

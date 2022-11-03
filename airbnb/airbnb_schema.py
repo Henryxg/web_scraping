@@ -10,7 +10,7 @@ class Schemas:
 
             'guayaquil':    {
 
-                'url' :'https://www.booking.com/searchresults.html?aid=378266&label=booking-name-IquAp%2AEbiLS6jPVl_he8yQS461499016255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp9069556%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YYriJK-Ikd_dLBPOo0BdMww&sid=dde0145e7f3a95c52398006b418ce0cf&checkin=2022-10-30&checkout=2022-10-31&city=-927505&group_adults=1&group_children=0&highlighted_hotels=4092846&hlrd=with_av&keep_landing=1&no_rooms=1&redirected=1&source=hotel&srpvid=7ee3982c5fb20272&room1=A,;#hotelTmpl'
+                'url' :'https://www.airbnb.com/s/Guayaquil--Guayas--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=Guayaquil%2C%20Guayas&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&place_id=ChIJX4BV6MsTLZARc6T89JKkFYA&checkin=2022-11-10&checkout=2022-11-11'
 
             },
 
@@ -28,13 +28,13 @@ class Schemas:
 
             'manta':        {
 
-                'url':'https://www.tripadvisor.es/Hotels-g297538-Manta_Manabi_Province-Hotels.html'
+                'url':'https://www.airbnb.com/s/Manta--Manab%C3%AD--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=1&query=Manta%2C%20Manab%C3%AD&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&checkin=2022-11-10&checkout=2022-11-11&place_id=ChIJi5hA5KnmK5ARuphvqSW4A5Q'
 
             },
 
             'loja':         {
 
-                'url' : 'https://www.tripadvisor.es/Hotels-g644406-Loja_Loja_Province-Hotels.html',
+                'url' : 'https://www.airbnb.com/s/Loja--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=1&query=Loja%2C%20Ecuador&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&checkin=2022-11-10&checkout=2022-11-11&place_id=ChIJLR25YQZIy5ERCe4e3HwTEo4',
                 'h_nombre': 'biGQs _P fiohW eIegw'
 
             },

@@ -181,14 +181,12 @@ class Hotel_Expedia():
 
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
-        with open("expedia/" +ciudad +"-tripad.json", "w") as outfile:
+        with open("expedia/basejson/" +ciudad +"_expedia.json", "w") as outfile:
             outfile.write(json_object)
 
 
 if __name__ == "__main__":
-   
-    
     ciudades = ['manta','loja','ambato','guayaquil']
     for i in ciudades:
         ciudad= i
-        Hotel_Expedia(ciudad).ingest(ciudad)
+        Hotel_Expedia(ciudad).ingest(ciudad+'v2')
