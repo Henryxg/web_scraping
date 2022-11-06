@@ -15,13 +15,13 @@ class Schemas:
             },
 
             'ambato':       {
-                'url':'https://www.tripadvisor.es/Hotels-g677335-Ambato_Tungurahua_Province-Hotels.html'
+                'url':'https://www.airbnb.com/s/Ambato--Tungurahua--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=1&query=Ambato%2C%20Tungurahua&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&checkin=2022-11-10&checkout=2022-11-11&place_id=ChIJH1Xvf6OB05ERGxYy2CS8LXo'
 
 
             },
 
             'ibarra':       {
-                'url': 'https://www.tripadvisor.es/Hotels-g312858-Ibarra_Imbabura_Province-Hotels.html'
+                'url': 'https://www.airbnb.com/s/Ibarra--Imbabura--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=1&query=Ibarra%2C%20Imbabura&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&checkin=2022-11-10&checkout=2022-11-11&place_id=ChIJXTdbeKE8Ko4R22oFPhM_cIU'
 
 
             },

@@ -48,7 +48,7 @@ class Hotel_Airbnb():
     def limpiesa(self, value, tipo):
         if tipo== 'fechac':
             full_month_format = "%B %Y"
-            full_month_date= value
+            full_month_date= value.replace(',  · ,  · Last minute trip','')
             per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
             return per 
         elif tipo== 'precio':
@@ -73,6 +73,7 @@ class Hotel_Airbnb():
             time.sleep(3)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
+            time.sleep(3)
             eq = soup.find_all('div',class_="c1l1h97y dir dir-ltr") 
             return eq
         except:
@@ -133,6 +134,9 @@ class Hotel_Airbnb():
       
         try:
             hcomen=[]
+            time.sleep(2)
+            self.clickon('/html/body/div[10]/section/div/div/div[2]/div/div[3]/div/div/div/div/section/div/div[2]/div[1]/div/div/label/div/div')
+            self.scrooll()
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
 
@@ -151,7 +155,6 @@ class Hotel_Airbnb():
     def ingest(self,ciudad):
         resultado= []
         eq = self.hotelesc()
-    
         for hotel in eq:
             h_registrado = {}
             
@@ -165,14 +168,15 @@ class Hotel_Airbnb():
                 h_registrado = {}
             
             resultado= resultado + [h_registrado] if h_registrado!={} else resultado
-            i+=1
+           
 
         print('hola estoy aqui')
         json_object = json.dumps(resultado)
-        with open("expedia/basejson/" +ciudad +"-expedia.json", "w") as outfile:
+        with open("airbnb/basejson/" +ciudad +"_airbnb.json", "w") as outfile:
             outfile.write(json_object)
 
 
 if __name__ == "__main__":
-    ciudad= "quito"
-    Hotel_Airbnb(ciudad).ingest(ciudad)
+    ciudades=  ['guayaquil','ambato','ibarra','loja','manta','quito']
+    for ciudad in ciudades:
+        Hotel_Airbnb(ciudad).ingest(ciudad)
