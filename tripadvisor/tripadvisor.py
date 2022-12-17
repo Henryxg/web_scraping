@@ -228,7 +228,7 @@ if __name__ == "__main__":
     
     #ciudad= 'ambato'
     #sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
-    ciudades = ['guayaquil','quito','manta','loja']
+    ciudades = ['guayaquil','ambato','ibarra','loja','manta','quito']
     sol=[]
     for ciudad in ciudades:
         sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')

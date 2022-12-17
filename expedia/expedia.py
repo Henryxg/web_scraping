@@ -64,6 +64,11 @@ class Hotel_Expedia():
         for i in range(times):
             elemet.send_keys(Keys.PAGE_DOWN)
             time.sleep(0.5+random.random())
+    def scrooll_up(self,times):
+        elemet= self.driver.find_element("tag name", "body")
+        for i in range(times):
+            elemet.send_keys(Keys.PAGE_UP)
+            time.sleep(0.5+random.random())
     
 
     def hotelesc(self ):
@@ -83,8 +88,9 @@ class Hotel_Expedia():
         try:
             url_re = self.url +hotel.find('a',class_="uitk-card-link").attrs['href']
             self.driver.get(url_re)
-            time.sleep(20) if i==1 else None
+            time.sleep(30) if i==1 else None
             self.clickon('//*[@id="navigation"]/div[1]/div/ul/li[1]')
+            self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[2]/div[2]/section/div/div/div/div[1]/div/ul/li[1]/a')
             time.sleep(2)
             soup= self.refresh()
             h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
@@ -95,7 +101,7 @@ class Hotel_Expedia():
             precio_piv= soup.find( 'div' ,class_= 'uitk-spacing uitk-spacing-padding-block-half') if soup.find( 'div' ,class_= 'uitk-spacing uitk-spacing-padding-block-half') is not None else None
             preciotofl= precio_piv.find( 'div' ,class_= 'uitk-text uitk-type-300 uitk-text-default-theme is-visually-hidden') if precio_piv.find( 'div' ,class_= 'uitk-text uitk-type-300 uitk-text-default-theme is-visually-hidden') is not None else ''
             h_registrado['precio']= self.limpiesa(preciotofl.text, 'precio') if preciotofl!= '' else ''
-            h_registrado['puntuacion']  =   float(soup.find( 'h3' ,class_= 'uitk-heading uitk-heading-5 uitk-spacing uitk-spacing-padding-blockend-three').text[:3]) if soup.find( 'h3' ,class_= 'uitk-heading uitk-heading-5 uitk-spacing uitk-spacing-padding-blockend-three') is not None else ''
+            h_registrado['puntuacion']  =   float(soup.find( 'div' ,class_= 'uitk-text uitk-type-300 uitk-type-medium uitk-text-default-theme uitk-layout-flex-item').text[:3])/2 if soup.find( 'div' ,class_= 'uitk-text uitk-type-300 uitk-type-medium uitk-text-default-theme uitk-layout-flex-item') is not None else ''
             h_registrado['direccion']  =  soup.find( 'div' ,class_=  'uitk-text uitk-type-300 uitk-text-default-theme uitk-layout-flex-item uitk-layout-flex-item-flex-basis-full_width').text  if soup.find( 'div' ,class_=  'uitk-text uitk-type-300 uitk-text-default-theme uitk-layout-flex-item uitk-layout-flex-item-flex-basis-full_width') is not None else ''  
             self.scrooll(4)
             time.sleep(3)
@@ -104,13 +110,14 @@ class Hotel_Expedia():
             h_registrado["n_habitaciones"]= self.n_habitaciones
             self.scrooll(5)
             ## ingresando al hotel
+            self.scrooll(8)
           
             time.sleep(2)
-           
-            self.clickon('//*[@id="navigation"]/div[1]/div/ul/li[6]')  # si existe el aununcio d etraducir
-            
+            self.scrooll(6)
+            self.scrooll_up(1)
+            self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div/button')  # si existe el aununcio d etraducir
             time.sleep(2)
-            self.scrooll(2)
+            self.scrooll(3)
 
             soup= self.refresh()
             
@@ -140,9 +147,9 @@ class Hotel_Expedia():
         try:
             hcomen =[]
             soup = self.refresh()
-            self.clickon('//*[@id="navigation"]/div[1]/div/ul/li[6]/a/span')
+            self.clickon('/html/body/div[2]/div[1]/div[2]/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div/select')
             time.sleep(2)
-            self.clickon('//*[@id="navigation"]/div[1]/div/ul/li[6]/a/span')
+            self.clickon('/html/body/div[2]/div[1]/div[2]/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div/select/option[2]')
             time.sleep(2)
             soup = self.refresh()
             comentarios =  soup.find_all('div',class_="uitk-card-content-section uitk-card-content-section-border-block-end uitk-card-content-section-padded")
@@ -186,7 +193,7 @@ class Hotel_Expedia():
 
 
 if __name__ == "__main__":
-    ciudades = ['manta','loja','ambato','guayaquil']
+    ciudades = ['guayaquil','ambato','ibarra','loja','manta','quito']
     for i in ciudades:
         ciudad= i
         Hotel_Expedia(ciudad).ingest(ciudad+'v2')

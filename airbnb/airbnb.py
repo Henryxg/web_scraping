@@ -22,7 +22,7 @@ class Hotel_Airbnb():
 
         self.servi= ciudad
         
-        self.driver=  webdriver.Chrome("./chromedriver")
+        self.driver=  webdriver.Chrome("/home/henryx/prueba/web_scraping/chromedriver")
         self.url = "https://www.airbnb.com/"
         self.sito = 'expedia'
         self.ciudad = ciudad
@@ -82,7 +82,7 @@ class Hotel_Airbnb():
 
     def inf_hotel(self, h_registrado, hotel):
         try:
-            url_re = 'https://www.airbnb.com/'+hotel.find('a',class_="ln2bl2p dir dir-ltr").attrs['href']
+            url_re = 'https://www.airbnb.com/'+hotel.find('a',class_="bn2bl2p dir dir-ltr").attrs['href']
             time.sleep(2)
             h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
             h_registrado['tipo'] = self.tipone
@@ -101,6 +101,7 @@ class Hotel_Airbnb():
             soup = BeautifulSoup(page, 'html.parser') 
             h_registrado['nombre_id'] = soup.find('div',class_="_b8stb0").text
             h_registrado["precio"] = self.limpiesa( soup.find('div',class_="_ud8a1c").find('span',class_="_tyxjp1").text, 'precio') if soup.find('div',class_="_ud8a1c").find('span',class_="_tyxjp1") is not None else ''
+            h_registrado["precio"] = self.limpiesa( soup.find('div',class_="_ati8ih").find('span',class_="_1y74zjx").text , 'precio') if h_registrado["precio"]=='' and soup.find('div',class_="_ati8ih").find('span',class_="_1y74zjx") is not None else h_registrado["precio"]
             h_registrado["puntuacion"] = self.limpiesa( soup.find('div',class_="_ud8a1c").find('span',class_="_12si43g").text ,'ppuntuacion') if soup.find('div',class_="_ud8a1c").find('span',class_="_12si43g") is not None else ''
             h_registrado["ciudad"]=self.ciudad
             h_registrado["n_habitaciones"]= self.n_habitaciones
@@ -135,7 +136,7 @@ class Hotel_Airbnb():
         try:
             hcomen=[]
             time.sleep(2)
-            self.clickon('/html/body/div[10]/section/div/div/div[2]/div/div[3]/div/div/div/div/section/div/div[2]/div[1]/div/div/label/div/div')
+            self.clickon('/html/body/div[10]/section/div/div/div[2]/div/div[3]/div/div/div/div/section/div/div[2]/div[1]/div/div/label/div/div/input')
             self.scrooll()
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')

@@ -79,7 +79,7 @@ class Hotel_booking():
             self.driver.get(url_re)
             time.sleep(2)
            
-            self.clickon('/html/body/div[11]/section/div/div/div[2]/div/div[1]/button')  # si existe el aununcio d etraducir
+            #self.clickon('/html/body/div[11]/section/div/div/div[2]/div/div[1]/button')  # si existe el aununcio d etraducir
            
             self.scrooll(7)
             
@@ -111,7 +111,7 @@ class Hotel_booking():
             time.sleep(0.5)
             self.scrooll(2)
             
-            de = self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[3]/div[9]/div/div/div/button')
+            de = self.clickon('/html/body/div[5]/div/div[4]/div[1]/div[1]/div[6]/div/div[2]/div[6]/div/div/button')
             de = self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[3]/div[8]/div/div/div/button/span') if de==False else self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[2]/div[8]/div/div/button') 
             time.sleep(1)
             self.scrooll(2)
@@ -205,7 +205,7 @@ class Hotel_booking():
 
 if __name__ == "__main__":
   
-    ciudades = ['ibarra']
+    ciudades = ['quito','guayaquil','ambato','ibarra','loja','manta']
     for i in ciudades:
         ciudad= i
         Hotel_booking(ciudad).ingest(ciudad+'v2')
