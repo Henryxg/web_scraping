@@ -81,13 +81,13 @@ class Hotel_booking():
            
             #self.clickon('/html/body/div[11]/section/div/div/div[2]/div/div[1]/button')  # si existe el aununcio d etraducir
            
-            self.scrooll(7)
+            self.scrooll(2)
             
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')  
             h_registrado['tipo'] = 'hotel'
             h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
-            h_registrado["descripccion"]=soup.find('div',id='property_description_content').text.replace('\n', '') if soup.find('div',id='property_description_content') is not None else ''
+            h_registrado["descripcion"]=soup.find('div',id='property_description_content').text.replace('\n', '') if soup.find('div',id='property_description_content') is not None else ''
             h_registrado['nombre_id'] = soup.find('h2',class_='d2fee87262 pp-header__title').text    if soup.find('h2',class_='d2fee87262 pp-header__title') is not None else ''
             h_registrado["precio"] = float(soup.find('span',class_='prco-valign-middle-helper').text[3:][:-1].replace('$',''))          if soup.find('span',class_='prco-valign-middle-helper') is not None else ''
             h_registrado["direccion"] = soup.find('p',class_='address address_clean').text.replace('\n','')    if soup.find('p',class_='address address_clean') is not None else ''
@@ -109,10 +109,24 @@ class Hotel_booking():
                 h_registrado["puntuacion"]= long(informacion.find('div', class_='b5cd09854e d10a6220b4').text )/2 if informacion.find('div',class_="b5cd09854e d10a6220b4") is not None else ''
                 h_registrado["calficacion_tx"] = informacion.find('span', class_='b5cd09854e f0d4d6a2f5 e46e88563a').text   if informacion.find('span',class_="b5cd09854e f0d4d6a2f5 e46e88563a") is not None else ''
             time.sleep(0.5)
-            self.scrooll(2)
+            self.scrooll(5)
             
             de = self.clickon('/html/body/div[5]/div/div[4]/div[1]/div[1]/div[6]/div/div[2]/div[6]/div/div/button')
-            de = self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[3]/div[8]/div/div/div/button/span') if de==False else self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[2]/div[8]/div/div/button') 
+            time.sleep(0.1) 
+            self.scrooll(1)
+            de = self.clickon('/html/body/div[3]/div/div[5]/div[1]/div[1]/div[6]/div/div[2]/div[6]/div/div/button') if de==False else True
+            time.sleep(0.1) 
+            self.scrooll(1)
+            self.clickon('/html/body/div[3]/div/div[6]/div[1]/div[1]/div[8]/div/div[2]/div[1]/div/div[2]/div/button') if de==False else True
+            time.sleep(0.1) 
+            self.scrooll(1)
+            de = self.clickon('/html/body/div[5]/div/div[5]/div[1]/div[1]/div[8]/div/div[2]/div[6]/div/div/button') if de==False else True
+            time.sleep(0.1) 
+            self.scrooll(1)
+            de = self.clickon('/html/body/div[5]/div/div[5]/div[1]/div[1]/div[8]/div/div[2]/div[6]/div/div/button') if de==False else True
+            time.sleep(0.1) 
+            self.scrooll(1)
+            de = self.clickon('//*[@id="guest-featured_reviews__horizontal-block"]/div[3]/div[8]/div/div/div/button/span') if de==False else True
             time.sleep(1)
             self.scrooll(2)
             self.clickon('//*[@id="review_sort"]')
@@ -150,6 +164,7 @@ class Hotel_booking():
       
         try:
             hcomen=[]
+            time.sleep(2)
             soup = self.refresh()
             comentarios = soup.find_all('li',class_="review_list_new_item_block")
             for i in range(2):
@@ -205,7 +220,8 @@ class Hotel_booking():
 
 if __name__ == "__main__":
   
-    ciudades = ['quito','guayaquil','ambato','ibarra','loja','manta']
+    #ciudades = ['quito','guayaquil','ambato','ibarra','loja','manta']
+    ciudades = ['manta']
     for i in ciudades:
         ciudad= i
-        Hotel_booking(ciudad).ingest(ciudad+'v2')
+        Hotel_booking(ciudad).ingest(ciudad+'v3')

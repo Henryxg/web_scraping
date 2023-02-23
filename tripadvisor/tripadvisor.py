@@ -105,7 +105,7 @@ class Hotel_Tripadvisor():
             url_re = self.url + hotel.find('div',class_="listing_title").find('a',class_= 'property_title prominent')['href']
             time.sleep(2)
             #h_registrado["descripccion"]=hotel.find('a',class_="review_count").text
-            h_registrado["link"]=url_re
+            h_registrado["sitio_web"]=url_re
             ## ingresando al hotel
             time.sleep(2)
             self.driver.get(url_re)
@@ -128,7 +128,7 @@ class Hotel_Tripadvisor():
             h_registrado["puntuacion"]= float(informacion.find('span',class_="uwJeR P").text)  if informacion.find('span',class_="uwJeR P") is not None else ''
             h_registrado["descripcion"]= informacion.find('div',class_="fIrGe _T").text  if informacion.find('div',class_="fIrGe _T") is not None else ''
             h_registrado["calficacion_tx"] = informacion.find('div',class_="kkzVG").text   if informacion.find('div',class_="kkzVG") is not None else ''
-            h_registrado["sitio_web"]=url_re
+           
             h_registrado["ciudad"]=self.ciudad
             h_registrado["n_habitaciones"]= self.n_habitaciones
         
@@ -185,9 +185,9 @@ class Hotel_Tripadvisor():
                     incommet['p_puntuacion'] = self.limpiesa(incommet['p_puntuacion'],'burble' )
                     incommet['p_pais_de_origen'] = comen.find('span', class_= 'RdTWF').text if comen.find('span', class_= 'RdTWF') is not None else ''
                     incommet['p_n_contributions'] = float(comen.find('span', class_= 'yRNgz').text) if comen.find('span', class_= 'yRNgz') is not None else ''
-                    incommet['p_date_stay'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
+                    incommet['p_fecha_comen'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
                     
-                    incommet['p_date_stay']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
+                    incommet['p_fecha_comen']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
                     # teHYY _R Me S4 H3
                     hcomen = hcomen + [incommet]
                 except:
@@ -219,18 +219,17 @@ class Hotel_Tripadvisor():
         print('hola estoy aqui')
         
         json_object = json.dumps(resultado)
-        with open("tripadvisor/basejson" +ciudad +"-tripad.json", "w") as outfile:
+        with open("tripadvisor/basejson/" +ciudad +"_tripad.json", "w") as outfile:
             outfile.write(json_object)
         return resultado
 
 
 if __name__ == "__main__":
     
-    #ciudad= 'ambato'
-    #sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
-    ciudades = ['guayaquil','ambato','ibarra','loja','manta','quito']
+  
+    ciudades = ['ambato']
     sol=[]
     for ciudad in ciudades:
-        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
+        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v3')
 
  

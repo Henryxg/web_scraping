@@ -10,7 +10,7 @@ class Schemas:
 
             'guayaquil':    {
 
-                'url' :'https://www.airbnb.com/s/Guayaquil--Guayas--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=Guayaquil%2C%20Guayas&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&place_id=ChIJX4BV6MsTLZARc6T89JKkFYA&checkin=2022-11-10&checkout=2022-11-11'
+                'url' :'https://www.airbnb.com.ec/s/Guayaquil--Guayas--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=Guayaquil%2C%20Guayas&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&place_id=ChIJX4BV6MsTLZARc6T89JKkFYA&checkin=2022-11-10&checkout=2022-11-11&_set_bev_on_new_domain=1671311638_NWY1NzA3YmZlZTNm'
 
             },
 

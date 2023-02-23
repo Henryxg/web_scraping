@@ -10,9 +10,9 @@ class Exporter_expedia():
         df.head()
         f = open(ruta)
         data = json.load(f)
-
+        
         base_one= df[['fecha_view', 'tipo', 'sitio_web', 'nombre_id', 'precio', 'puntuacion',
-       'direccion', 'descripccion', 'ciudad', 'n_habitaciones']]
+       'direccion', 'descripcion', 'ciudad', 'n_habitaciones']] 
         
         for i in data:
             if 'comentarios' in i:
@@ -25,7 +25,8 @@ class Exporter_expedia():
     
     def tocsv(self, compania):
         
-        nom_ciud= ["ambato"+self.versionn+"_expedia","quito"+self.versionn+"_expedia","ibarra"+self.versionn+"_expedia","manta"+self.versionn+"_expedia",\
+        nom_ciud= ["ambato"+self.versionn+"_expedia",
+                    "quito"+self.versionn+"_expedia","ibarra"+self.versionn+"_expedia","manta"+self.versionn+"_expedia",\
             "guayaquill"+self.versionn+"_expedia"]
 
         base, coemntarios = self.topandas_one("loja"+self.versionn+"_expedia",[])
@@ -37,7 +38,8 @@ class Exporter_expedia():
         base= base[pd.notna(base['sitio_web'])]
         coemntarios= pd.DataFrame(coemntarios)
         coemntarios.to_csv('data/base_'+compania+'_comentarios.csv')
+        base['n_habitaciones']=2
         base.to_csv('data/base_'+compania+'_hotel.csv')
 
 
-Exporter_expedia('v2').tocsv('expedia')
+Exporter_expedia('v3').tocsv('expedia')

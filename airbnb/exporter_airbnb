@@ -39,8 +39,9 @@ class Exporter_airbnb():
             coemntarios =coemntarios + valores[1] 
         base= base[pd.notna(base['sitio_web'])]
         coemntarios= pd.DataFrame(coemntarios)
-        coemntarios.to_csv('data/base_'+compania+'_comentarios.csv')
-        base.to_csv('data/base_'+compania+'_hotel.csv')
+        coemntarios.to_csv('data/base_'+compania+'_comentarios.csv', index=False)
+        base.to_csv('data/base_'+compania+'_hotel.csv', index=False)
 
 
-Exporter_airbnb('v2').tocsv('airbnb')
+Exporter_airbnb('v3').tocsv('airbnb')
+['quito','guayaquil','ambato','ibarra','loja','manta']

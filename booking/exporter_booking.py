@@ -11,7 +11,7 @@ class Exporter_booking():
         f = open(ruta)
         data = json.load(f)
         df['sitio_web']= df['link'] if 'link' in df.columns else df['sitio_web']
-        base_one= df[['sitio_web', 'tipo', 'fecha_view', 'descripccion', 'nombre_id', 'precio',
+        base_one= df[['sitio_web', 'tipo', 'fecha_view', 'descripcion', 'nombre_id', 'precio',
        'direccion', 'puntuacion', 'calficacion_tx', 'ciudad', 'n_habitaciones']]
         
         for i in data:
@@ -29,7 +29,7 @@ class Exporter_booking():
                     "quito"+self.versionn+"_"+ compania,\
                     "ibarra"+self.versionn+"_"+ compania,\
                     "manta"+self.versionn+"_"+ compania,\
-                    "guayaquill"+self.versionn+"_"+ compania]
+                    "guayaquil"+self.versionn+"_"+ compania]
 
         base, coemntarios = self.topandas_one("loja"+self.versionn+"_"+ compania,[])
         
@@ -39,8 +39,8 @@ class Exporter_booking():
             coemntarios =coemntarios + valores[1] 
         base= base[pd.notna(base['sitio_web'])]
         coemntarios= pd.DataFrame(coemntarios)
-        coemntarios.to_csv('data/base_'+compania+'_comentarios.csv')
-        base.to_csv('data/base_'+compania+'_hotel.csv')
+        coemntarios.to_csv('data/base_'+compania+'_comentarios.csv',index=False)
+        base.to_csv('data/base_'+compania+'_hotel.csv',index=False)
 
 
-Exporter_booking('v2').tocsv('booking')
+Exporter_booking('v3').tocsv('booking')

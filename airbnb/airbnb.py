@@ -19,9 +19,7 @@ class Hotel_Airbnb():
             return print('ciudad no existe'+ ciudad) 
 
         self.linkh= self.schema['url'] 
-
         self.servi= ciudad
-        
         self.driver=  webdriver.Chrome("/home/henryx/prueba/web_scraping/chromedriver")
         self.url = "https://www.airbnb.com/"
         self.sito = 'expedia'
@@ -46,11 +44,20 @@ class Hotel_Airbnb():
         return soup
 
     def limpiesa(self, value, tipo):
+        dic_moth= {"enero":"january", "febrero":"february", "marzo":"march", "abril":"april", "mayo":"may", "junio":"june", "julio":"july", "agosto":"august", "septiembre":"september", "octubre":"october", "noviembre":"november" , "diciembre":"december"}
         if tipo== 'fechac':
-            full_month_format = "%B %Y"
-            full_month_date= value.replace(',  · ,  · Last minute trip','')
-            per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
-            return per 
+            try:
+                full_month_format = "%B %Y"
+                key_moth= value.replace(',  · ,  · Viaje de última hora','')[:-4].replace(' de ', '')
+                if key_moth in dic_moth:
+                    key_moth= dic_moth[key_moth]
+                    full_month_date = key_moth +' '+value.replace(',  · ,  · Viaje de última hora','')[-4:]
+                else:
+                    full_month_date= value.replace(',  · ,  · Last minute trip','')
+                per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d")
+                return per 
+            except:
+                return '2022-12-16'
         elif tipo== 'precio':
             value= ''.join(filter(lambda x: x.isdigit(), value))            
             return float(value)
@@ -82,7 +89,7 @@ class Hotel_Airbnb():
 
     def inf_hotel(self, h_registrado, hotel):
         try:
-            url_re = 'https://www.airbnb.com/'+hotel.find('a',class_="bn2bl2p dir dir-ltr").attrs['href']
+            url_re = 'https://www.airbnb.com/'+hotel.find('a',class_="l1j9v1wn bn2bl2p dir dir-ltr").attrs['href']
             time.sleep(2)
             h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
             h_registrado['tipo'] = self.tipone
@@ -92,11 +99,23 @@ class Hotel_Airbnb():
             
             ## ingresando al hotel
             self.driver.get(url_re)
+            time.sleep(4)
+          
+            self.clickon( '/html/body/div[9]/section/div/div/div[2]/div/div[1]')
+            self.clickon('/html/body/div[5]/div/div/div[1]/div/div[1]/div/div/div/div/div[1]/div/div/header/div/div[3]/nav/div[1]/div/button/div/div') 
+            
+            self.clickon('/html/body/div[9]/section/div/div/div[2]/div/div[1]/button')
             time.sleep(2)
-           
-            self.clickon('/html/body/div[11]/section/div/div/div[2]/div/div[1]/button')  # si existe el aununcio d etraducir
-            self.clickon('/html/body/div[10]/section/div/div/div[2]/div/div[1]/button')
+            self.clickon('/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/div/div[1]/div/div/header/div/div[3]/nav/div[1]/div/button')
+            time.sleep(3)
+
+       
+            self.clickon( '/html/body/div[10]/section/div/div/div[2]/div/div[2]/div/div[2]/div[1]/section[2]/div/ul/li[28]/a/div[1]') 
+            self.clickon('/html/body/div[9]/section/div/div/div[2]/div/div[1]/button/span')
+            self.clickon('/html/body/div[9]/section/div/div/div[2]/div/div[1]/button')
+            self.clickon( '/html/body/div[9]/section/div/div/div[2]/div/div[1]')
             time.sleep(2)
+            soup= self.refresh()
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser') 
             h_registrado['nombre_id'] = soup.find('div',class_="_b8stb0").text
@@ -107,9 +126,13 @@ class Hotel_Airbnb():
             h_registrado["n_habitaciones"]= self.n_habitaciones
             time.sleep(0.5)
             self.scrooll()
+            time.sleep(0.5)
             sera_c = self.clickon( '//*[@id="site-content"]/div/div[1]/div[4]/div/div/div/div[2]/section/div[3]/div/div/div[6]/div/div[2]/div[2]/button')
             sera_c = self.clickon('//*[@id="site-content"]/div/div[1]/div[1]/div[1]/div/div/div/div/section/div[2]/div[1]/span[1]/span[3]/button') if sera_c == False else False
             sera_c = self.clickon( '//*[@id="site-content"]/div/div[1]/div[4]/div/div/div/div[2]/section/div[4]/button') if sera_c == False else False
+            time.sleep(0.5)
+            
+           
             return h_registrado
                 
         except:
@@ -135,8 +158,10 @@ class Hotel_Airbnb():
       
         try:
             hcomen=[]
-            time.sleep(2)
-            self.clickon('/html/body/div[10]/section/div/div/div[2]/div/div[3]/div/div/div/div/section/div/div[2]/div[1]/div/div/label/div/div/input')
+            time.sleep(3)
+            self.clickon('/html/body/div[9]/section/div/div/div[2]/div/div[3]/div/div/div/section/div[1]/div[2]/div/label')
+            self.clickon('/html/body/div[9]/section/div/div/div[2]/div/div[3]/div/div/div/section/div[1]/div[2]/div/label/div/div')
+            
             self.scrooll()
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
@@ -153,7 +178,8 @@ class Hotel_Airbnb():
             print('algo pasa con ' )
             return {}
 
-    def ingest(self,ciudad):
+    def ingest(self, version):
+        ciudad = self.ciudad+version
         resultado= []
         eq = self.hotelesc()
         for hotel in eq:
@@ -180,4 +206,4 @@ class Hotel_Airbnb():
 if __name__ == "__main__":
     ciudades=  ['guayaquil','ambato','ibarra','loja','manta','quito']
     for ciudad in ciudades:
-        Hotel_Airbnb(ciudad).ingest(ciudad)
+        Hotel_Airbnb(ciudad).ingest('v4')

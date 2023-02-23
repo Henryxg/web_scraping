@@ -1,1 +1,6 @@
 env
+airbnb/basejson
+booking/basejson
+tripadvisor/basejson
+expedia/basejson
+data/
