@@ -48,7 +48,7 @@ Como una recomendacios utilizaremos un entorno virtual.
 
 
 
-## Extracion de datos.
+## Extracion y transformacion de datos.
 
 Cada carpeta contiene un scrip independiende el cual se encargara de recolectar datos des sitio web. A persar de su indepencia todos los scrips contienen los mismos metodos. Para replicar el ejercicio utilizaremos es script de Airbnb.
 
@@ -59,47 +59,9 @@ Cada carpeta contiene un scrip independiende el cual se encargara de recolectar 
         Hotel_Airbnb(ciudad).ingest(ciudad+'v3')
     ```
 
+## Carga de los datos.
+
+Cada carpeta contiene un scrip independiende denominado 'exporter_...' el cual se encargara de recolectar y unir los archivos json de la carpeta basejon. Los scrips unidos se almacenan en la capeta data, finalmente los datos son cargados a una base postgres mediante el scrip 'top_post.py'.
 
 
-## Estructura del algoritmo
-
-class Hotel_Tripadvisor():
-    def __init__(self, ciudad):
-       
-    
-
-    def clickon(self, xxpad):
-       
-    
-   
-    def scrooll(self):
-       
-    
-
-    def hotelesc(self ):  
-     
-    def limpiesa(self, value, tipo):
-    
-
-
-    def inf_hotel(self, h_registrado, hotel):
-    
-    def open_hidenc(self):
-          
-
-    def get_comments(self, hnombre):
-      
-      
-    def ingest(self,ciudad):
-       
-
-
-if __name__ == "__main__":
-    
-    #ciudad= 'ambato'
-    #sol= Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v2')
-    ciudades = ['ambato']
-    sol=[]
-    for ciudad in ciudades:
-        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v3')
 
