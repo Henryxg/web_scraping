@@ -38,6 +38,11 @@ class Schemas:
                 'h_nombre': 'biGQs _P fiohW eIegw'
 
             },
+            'baños': {
+                'url' : 'https://www.airbnb.com/s/Ambato--Ba%C3%B1os-de-Agua-Santa--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=Ambato%2C%20Ba%C3%B1os%20de%20Agua%20Santa&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&place_id=EiVBbWJhdG8sIEJhw7FvcyBkZSBBZ3VhIFNhbnRhLCBFY3VhZG9yIi4qLAoUChIJX15wKyKR05ERH5F9AEtXB2oSFAoSCYkmCGAikdOREemu2PzyyGfb&checkin=2023-03-21&checkout=2023-03-22',
+
+
+            },
 
             'restosierra': {    
 
@@ -57,6 +62,7 @@ class Schemas:
 
 
             },
+
             
         }
     def getSchema(self, schema_name):

@@ -204,6 +204,6 @@ class Hotel_Airbnb():
 
 
 if __name__ == "__main__":
-    ciudades=  ['guayaquil','ambato','ibarra','loja','manta','quito']
+    ciudades=  ['baños', 'guayaquil','ambato','ibarra','loja','manta','quito']
     for ciudad in ciudades:
         Hotel_Airbnb(ciudad).ingest('v4')
