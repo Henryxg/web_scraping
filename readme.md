@@ -1,5 +1,5 @@
 # Web scraping
-Wed scraping es el proceso de usar bots para extraer contenido y datos de un sitio web.
+Web scraping es el proceso de usar bots para extraer contenido y datos de un sitio web.
 ## ¿Como funciona?
 
 El web scraping extrae el código HTML subyacente y, con él, los datos se transforman y son almacenados en una base de datos. El ususario puede replicar todo el contenido del sitio web en otro lugar.
@@ -13,7 +13,7 @@ WebDriver es una herramienta de código abierto para pruebas automatizadas de ap
 # Algoritmo
 
 
-Cada carpeta, cuyo nombre es el sitio web, contine un scrip de python el cual realizara el web scraping. El scrip contiene una clase cuyos metodos son los encargados de la extracion y tranformacion de la informacion de los hoteles. Los datos extraidos son almacenamos en un archivo json con el nombre de cada ciudad y el sitio web posteriormente son enviados a una base de datos postgres. 
+Cada carpeta, cuyo nombre es el sitio web, contiene un script de python el cual realizará el web scraping. El script contiene una clase cuyos métodos son los encargados de la extracción y transformación de la información de los hoteles. Los datos extraídos son almacenamos en un archivo json con el nombre de cada ciudad y el sitio web posteriormente son enviados a una base de datos postgres.
 
 Los sitios web y las ciudades son detallados a continuacion:
  
@@ -23,7 +23,7 @@ Los sitios web y las ciudades son detallados a continuacion:
 
 ## Comencemos
 
-A continuacion brindamos una guia que nos permitira replicar el proyecto reduciendo la posible incopatibilidad con las verciones de las libretias de python.
+A continuación brindamos una guía que nos permitirá replicar el proyecto reduciendo la posible incompatibilidad con las versiones de las librerías de python.
 
 ### Prerequisites
 
@@ -50,7 +50,7 @@ Como una recomendacios utilizaremos un entorno virtual.
 
 ## Extracion y transformacion de datos.
 
-Cada carpeta contiene un scrip independiende el cual se encargara de recolectar datos des sitio web. A persar de su indepencia todos los scrips contienen los mismos metodos. Para replicar el ejercicio utilizaremos es script de Airbnb.
+Cada carpeta contiene un script independiente el cual se encargará de recolectar datos del sitio web. A pesar de su independencia todos los scripts contienen los mismos métodos. Para replicar el ejercicio utilizaremos el script de Airbnb.
 
 * El archivo airbnb.py inicia corriendo la clase 
     ```sh
@@ -61,7 +61,6 @@ Cada carpeta contiene un scrip independiende el cual se encargara de recolectar 
 
 ## Carga de los datos.
 
-Cada carpeta contiene un scrip independiende denominado 'exporter_...' el cual se encargara de recolectar y unir los archivos json de la carpeta basejon. Los scrips unidos se almacenan en la capeta data, finalmente los datos son cargados a una base postgres mediante el scrip 'top_post.py'.
-
+Cada carpeta contiene un script independiente denominado 'exporter_...' el cual se encargará de recolectar y unir los archivos json de la carpeta base json. Los scripts unidos se almacenan en la carpeta data, finalmente los datos son cargados a una base postgres mediante el script 'top_post.py'.
 
 
