@@ -54,7 +54,7 @@ class Hotel_Tripadvisor():
             time.sleep(2)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
-            eq = soup.find_all('div',class_="prw_rup prw_meta_hsx_listing_name listing-title")  ## encuantra la lista de hoteles que hay que  prw_rup prw_meta_hsx_responsive_listing ui_section listItem
+            eq = soup.find_all('div',class_="prw_rup prw_meta_hsx_responsive_listing ui_section listItem reducedWidth rounded")  ## encuantra la lista de hoteles que hay que  prw_rup prw_meta_hsx_responsive_listing ui_section listItem
             return eq
         except:
             return False
@@ -187,7 +187,7 @@ class Hotel_Tripadvisor():
                     incommet['p_n_contributions'] = float(comen.find('span', class_= 'yRNgz').text) if comen.find('span', class_= 'yRNgz') is not None else ''
                     incommet['p_fecha_comen'] = comen.find('span', class_= 'teHYY _R Me S4 H3').text if comen.find('span', class_= 'teHYY _R Me S4 H3') is not None else ''
                     
-                    incommet['p_fecha_comen']= self.limpiesa(incommet['p_date_stay'][14:],'fecha' )   if incommet['p_date_stay'] != '' else ''
+                    incommet['p_fecha_comen']= self.limpiesa(incommet['p_fecha_comen'][14:],'fecha' )   if incommet['p_fecha_comen'] != '' else ''
                     # teHYY _R Me S4 H3
                     hcomen = hcomen + [incommet]
                 except:

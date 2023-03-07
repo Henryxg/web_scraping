@@ -37,8 +37,8 @@ class Hotel_Expedia():
         if tipo== 'fechacom':
             dic_moth= {"ene":"january", "feb":"february", "mar":"march", "abr":"april", "may":"may", "jun":"june", "jul":"july", "ago":"august", "sept":"september", "octubre":"oct", "novi":"november" , "dic":"december"}
             value= value.replace(',','')
-            full_month_format = "%b %d %Y"
-            full_month_date= value.replace('dic','dec').replace('sept','sep').replace('ago','aug')
+            full_month_format = "%d %b %Y"
+            full_month_date= value.replace('ene','jan').replace('dic','dec').replace('sept','sep').replace('ago','aug')
             per=dt.datetime.strptime(full_month_date, full_month_format).strftime("%Y-%m-%d") 
             return per 
         elif tipo== 'precio':
@@ -76,7 +76,7 @@ class Hotel_Expedia():
         try:
             self.driver.get(self.linkh)
             self.scrooll(2)
-            time.sleep(3)
+            time.sleep(10)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
             eq = soup.find_all('div',class_="uitk-spacing uitk-spacing-margin-blockstart-three") 
@@ -91,7 +91,7 @@ class Hotel_Expedia():
             self.driver.get(url_re)
             time.sleep(30) if i==1 else None
             self.clickon('//*[@id="navigation"]/div[1]/div/ul/li[1]')
-            self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[2]/div[2]/section/div/div/div/div[1]/div/ul/li[1]/a')
+            #self.clickon('/html/body/div[2]/div[1]/div/div[1]/div/header/div/section/div/div/div[2]/button')
             time.sleep(2)
             soup= self.refresh()
             h_registrado['fecha_view'] = dt.datetime.today().strftime('%Y-%m-%d')
@@ -121,6 +121,8 @@ class Hotel_Expedia():
             time.sleep(2)
             self.scrooll(12)
             self.scrooll_up(1)
+            see=self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[2]/div/div[3]/div[20]/div/div/div/div/div[2]/div/button')  # si existe el aununcio d etraducir
+
             see=self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div/button')  # si existe el aununcio d etraducir
             see= self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div/button')
             self.clickon('/html/body/div[2]/div[1]/div/div[1]/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div')
@@ -158,8 +160,8 @@ class Hotel_Expedia():
             self.clickon('/html/body/div[2]/div[1]/div[2]/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div/select')
             self.clickon('/html/body/div[2]/div[1]/div/div/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div')
             time.sleep(2)
-            self.clickon('/html/body/div[2]/div[1]/div/div[1]/main/div/div/section/div[1]/div[1]/div[1]/div/div[3]/div[19]/div/div/div/div/div[2]/div/button')
-            self.clickon('/html/body/div[2]/div[1]/div[2]/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div/select/option[2]')
+            self.clickon('/html/body/div[2]/div[1]/div[2]/section/div[3]/div/div[2]/div[1]/div/div/select')
+            self.clickon('/html/body/div[2]/div[1]/div[2]/section/div[3]/div/div[2]/div[1]/div/div/select/option[2]')
             time.sleep(2)
             self.scrooll(2)
             self.clickon('/html/body/div[2]/div[1]/div[2]/div[2]/div/div[2]/div/div/div[2]/div[2]/section/div[2]/button')

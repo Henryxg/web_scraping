@@ -133,6 +133,9 @@ class Hotel_booking():
             time.sleep(0.5)
             self.clickon('//*[@id="review_sort"]/option[2]')
             self.scrooll(2)
+            self.clickon('//*[@id="review_lang_filter"]')
+            time.sleep(0.5)
+            self.clickon('/html/body/div[3]/div/div[6]/div[1]/div[1]/div[1]/div/div[2]/div[15]/div/div[1]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div/div/ul/li[2]/button/span[1]')
             time.sleep(1.5)
             
             
