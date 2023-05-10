@@ -44,9 +44,9 @@ class Schemas:
 
             },
 
-            'restosierra': {    
+            'esmeraldas': {    
 
-
+                'url': 'https://www.airbnb.com/s/Esmeraldas--Ecuador/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2023-06-01&monthly_length=3&price_filter_input_type=0&price_filter_num_nights=5&channel=EXPLORE&query=Esmeraldas%2C%20Ecuador&date_picker_type=calendar&place_id=ChIJo4gQ2boxK44RLocNouWCiiQ&checkin=2023-05-10&checkout=2023-05-12&source=structured_search_input_header&search_type=autocomplete_click'
 
             },
 

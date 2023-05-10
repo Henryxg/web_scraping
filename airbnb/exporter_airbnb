@@ -25,13 +25,9 @@ class Exporter_airbnb():
     
     def tocsv(self, compania):
         
-        nom_ciud= ["ambato"+self.versionn+"_"+ compania ,\
-                    "loja"+self.versionn+"_"+ compania,\
-                    "ibarra"+self.versionn+"_"+ compania,\
-                    "manta"+self.versionn+"_"+ compania,\
-                    "guayaquil"+self.versionn+"_"+ compania]
+        nom_ciud= ["esmeraldas"+self.versionn+"_"+ compania ]
 
-        base, coemntarios = self.topandas_one("quito"+self.versionn+"_"+ compania,[])
+        base, coemntarios = self.topandas_one("esmeraldas"+self.versionn+"_"+ compania,[])
         
         for i in nom_ciud:
             valores= self.topandas_one(i,coemntarios)
@@ -43,5 +39,5 @@ class Exporter_airbnb():
         base.to_csv('data/base_'+compania+'_hotel.csv', index=False)
 
 
-Exporter_airbnb('v3').tocsv('airbnb')
-['quito','guayaquil','ambato','ibarra','loja','manta']
+Exporter_airbnb('v4').tocsv('airbnb')
+['esmeraldas','guayaquil','ambato','ibarra','loja','manta']

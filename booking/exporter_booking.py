@@ -43,4 +43,4 @@ class Exporter_booking():
         base.to_csv('data/base_'+compania+'_hotel.csv',index=False)
 
 
-Exporter_booking('v3').tocsv('booking')
+Exporter_booking('v4').tocsv('booking')

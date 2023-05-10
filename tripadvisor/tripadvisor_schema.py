@@ -39,9 +39,9 @@ class Schemas:
 
             },
 
-            'restosierra': {    
-
-
+            'Esmeraldas': {   
+                
+                'url' : 'https://www.tripadvisor.com/Hotels-g612478-Esmeraldas_Esmeraldas_Province-Hotels.html', 
 
             },
 

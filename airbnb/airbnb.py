@@ -181,7 +181,7 @@ class Hotel_Airbnb():
     def ingest(self, version):
         ciudad = self.ciudad+version
         resultado= []
-        eq = self.hotelesc()
+        eq = self.hotelesc() # lista de hoteles
         for hotel in eq:
             h_registrado = {}
             
@@ -204,6 +204,6 @@ class Hotel_Airbnb():
 
 
 if __name__ == "__main__":
-    ciudades=  ['baños', 'guayaquil','ambato','ibarra','loja','manta','quito']
+    ciudades=  ['esmeraldas','baños', 'guayaquil','ambato','ibarra','loja','manta','quito']
     for ciudad in ciudades:
         Hotel_Airbnb(ciudad).ingest('v4')

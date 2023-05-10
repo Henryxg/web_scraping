@@ -54,7 +54,7 @@ class Hotel_Tripadvisor():
             time.sleep(2)
             page = self.driver.page_source
             soup = BeautifulSoup(page, 'html.parser')
-            eq = soup.find_all('div',class_="prw_rup prw_meta_hsx_responsive_listing ui_section listItem reducedWidth rounded")  ## encuantra la lista de hoteles que hay que  prw_rup prw_meta_hsx_responsive_listing ui_section listItem
+            eq = soup.find_all('div',class_=" _F G- wSSLS SwZTJ FGwzt ukgoS")  ## encuantra la lista de hoteles que hay que  prw_rup prw_meta_hsx_responsive_listing ui_section listItem
             return eq
         except:
             return False
@@ -227,9 +227,9 @@ class Hotel_Tripadvisor():
 if __name__ == "__main__":
     
   
-    ciudades = ['ambato']
+    ciudades = ['Esmeraldas']
     sol=[]
     for ciudad in ciudades:
-        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v3')
+        sol= sol + Hotel_Tripadvisor(ciudad).ingest(ciudad+ 'v4')
 
  
